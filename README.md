@@ -17,13 +17,14 @@ Special Characters.
 string = the place from where we want to find.
 flag = Flag is if there is specific search criteria. Default is "False" which is 0. Flag = 1 is True
 ```
-Regular Expressions are outputted in Lists. 
-7. We cannot pass 2 Flags in the same function but in different we can:
+7. Regular Expressions are outputted in Lists. 
+
+8. We cannot pass 2 Flags in the same function but in different we can:
 ```commandline
 re.findall(pattern, string, re.Multiline)
 re.findall(pattern, string, re.IGNORECASE)
 ```
-8. REs allow us to manipulate strings on the pattern we define making it easy to perform operations.
+9. REs allow us to manipulate strings on the pattern we define making it easy to perform operations.
 
 ### Patterns
 In Regular Expressions (RegEx), a pattern refers to the sequence of characters that defines a specific search criteria. 
