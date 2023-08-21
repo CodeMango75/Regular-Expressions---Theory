@@ -64,16 +64,115 @@ In Regular Expressions, special characters are symbols that have special meaning
 searching and manipulating text. These characters are used to represent certain classes of characters or to specify how 
 many times a certain element should repeat
 
-1. dot (.) matches any character except backslash n or \n.
-2. Caret (^) matches the start of the String. In **MULTILINE** mode also matches immediately after new line.
-3. Plus (+) causes resulting REs to match **1** or more repetitions of preceding REs. `ab+` will match "a" followed 
-   by non-zero numbers of "b's"; it will not just match "a". REs should Appear at least once. 
-4. Dollar ($) matches end of the string or just before the new line at end of string and in **MULTILINE** also 
-   matches before new line.
-5. Asterisk (*) causes resultant REs to match `0` or more repetitions of preceding REs, as many repititions are 
-   possible. `ab*` will match 'a', 'ab' or 'a' followed by any number of "b's". REs can appear 0 or as many unlike + 
-   that has to be at least 1. If empty text, * will return empty []. 
-6. Question Mark (?) will match 0 or 1 of preceding REs. `ab` will match either `a` or `b`. In short, it means optional.
+### The **Dot (.)** Character
+
+**Dot (.)** matches any character except backslash n or \n.
+```
+# Dot . Character 
+import re
+string = "Talaal Yousoof is currently Studiyng Data Sciences"
+pattern = '.'
+dotmatch = re.findall(pattern, string)
+print(dotmatch) # since there is only one dot it matches only one character except \n had there been multiple dots, it would have matched the correspondent characters as per dots defined. 
+
+```
+```
+# Dot with preceding character
+pattern2 = '.a'
+dotmatch2 = re.findall(pattern2, string)
+print(dotmatch2) # . will match each character preceding a
+['Ta', 'la', 'Da', 'ta'] 
+```
+```
+# Dot with Proceding Character
+pattern3 = 'a..'
+dotmatch3 = re.findall(pattern3, string)
+print(dotmatch3)
+# Output : ['ala', 'al ', 'ata']
+```
+### **Caret (^)**
+Matches the start of the String. In **MULTILINE** mode also matches immediately after new line.
+
+If you use the caret (^) at the beginning of your RegEx pattern, it will look for matches that occur at the very beginning of a line or a piece of text.
+For example, if you have the RegEx pattern ^Hello, it will only match instances of "Hello" that appear at the very beginning of a line or string, and not if "Hello" appears later in the text.
+
+```
+# Caret Character
+string2 = "Hello I am Talaal \n Hello I am Omer \n Hello World"
+pattern_caret = "^Hello"
+caretmatch = re.findall(pattern_caret, string2)
+print(caretmatch) # Output ['Hello']
+```
+This is single output because its not **MULTILINE**. Since in the example, Hello is appearing thrice, we can use **MULTILINE** Flag:
+```# Caret Character
+string2 = "Hello I am Talaal \nHello I am Omer \n Hello World"
+pattern_caret = "^Hello"
+caretmatch = re.findall(pattern_caret, string2, re.MULTILINE)
+print(caretmatch)
+# Output => ['Hello' , 'Hello'] 
+```
+Why wasn't the third "Hello" matched? Notice the space after new line (\n), thats a character.
+```
+CaretString = """Python was invented by Goidum Van Rossum
+He is from Netherlands"""
+caretpattern = "^P..+"
+matchCaret = re.findall(caretpattern, CaretString)
+print(matchCaret)
+# Output => ['Python was invented by Goidum Van Rossum']
+```
+### **Plus (+)**
+Plus + causes resulting REs to match **1** or more repetitions of preceding REs. `ab+` will match "a" followed 
+by non-zero numbers of "b's"; it will not just match "a". Character should appear at least once. 
+```
+text = """Pakistan Zindabad! Pakistan is in Asia
+Pakistan was Founded by Quaid-e-Azam"""
+pluspattern = ".+"
+plusmatch = re.findall(pluspattern, text)
+print(plusmatch) #It printed whole sentence until line break. + matches the character that should appear at least once. In this case, dot matches every character individually since there is a single dot, and plus concatenates them. 
+```
+**Note**: *Had thre been no element before plus OR element after plus, it would have resulted in an error because it matches preceding character occuring at least once and there is either nothing to repeat at position 0.*
+
+### **Dollar ($)**
+Matches *end of the string* or just before the new line at end of string and in **MULTILINE** also matches before new line. In simpler terms, if you use the dollar sign ($) at the end of your RegEx pattern, it will look for matches that occur right at the very end of a line or a piece of text. It's like a marker that tells the RegEx engine to focus on finding patterns only at the end of the input.
+
+For example, if you have the RegEx pattern Hello$, it will only match instances of "Hello" that appear right at the very end of a lin or string, and not if "Hello" appears earlier in the text.
+```
+import re
+text = "Hello, this is a sample text. Hello"
+# Using $ to match "Hello" at the end of lines
+pattern = 'Hello$'
+matches = re.findall(pattern, text, re.MULTILINE)
+print(matches)
+# Output => ['Hello']
+```
+In this example, the text contains two instances of "Hello." However, only the last "Hello" at the end of the text is matched by the pattern with the dollar sign ($) at the end. 
+### **Asterisk (*)** 
+Causes resultant REs to match `0` or more repetitions of preceding REs, as many repititions are possible. `ab*` will match 'a', 'ab' or 'a' followed by any number of "b's". REs can appear 0 or as many unlike + that has to be at least 1. If empty text, * will return empty []. 
+
+### **Question Mark (?)** 
+Will match 0 or 1 of preceding REs. `ab` will match either `a` or `b`. In short, it means optional.
+1. It indicates that the preceding element in the pattern is optional.
+2. This means that the preceding element can occur either zero times or exactly once.
+3. In simpler terms, if you use the question mark (?) after a character or group of characters in your RegEx pattern, it means that the RegEx engine will consider that character or group as optional. It can be there, or it might not be there at all, and the pattern will still be considered a match.
+4. For example, if you have the RegEx pattern `colou?r`, it will match both "color" and "colour." The question mark makes the "u" in "colour" optional, so the pattern will match regardless of whether the "u" is present or not.
+```
+import re
+text = "The color of the sky is blue. The colour of the ocean is also blue."
+# Using ? to make "u" optional in the pattern
+pattern = r'colou?r'
+matches = re.findall(pattern, text)
+print(matches)
+# In this example, the pattern colou?r matches both "color" and "colour" in the text. The question mark allows the "u" to be there or not, making the pattern flexible enough to match both variations.
+```
+1. [] is used to indicate set of characters. In a Set:
+* Characters can be listed Individually eg [aml] will match `a`, `m` or `l`.
+* Ranges of characters can be indicated by giving two  characters and separate them by `-`, like `[a-z]` will 
+  match any lowercase ASCII letter. 
+* Special characters lose their speciality inside Brackets []. Meaning that any special character will be treated as 
+  a normal character inside []. 
+2. Curly Braces {m,n} causes Resulting REs to match from "m" to "n" attempting to match as many as possible.
+3. `\d` Matches unicode decimal digit [0-9]
+4. `\w` matches [A-z]
 **Rule** to convert any special character in to normal character, use `\` followed by a special character.
 Example:
 ```commandline
@@ -81,16 +180,6 @@ pattern = "." # any character without \n
 pattern = "\." # Ordinary dot character. 
 pattern = "\+" ordinary plus character
 ```
-7. [] is used to indicate set of characters. In a Set:
-* Characters can be listed Individually eg [aml] will match `a`, `m` or `l`.
-* Ranges of characters can be indicated by giving two  characters and separate them by `-`, like `[a-z]` will 
-  match any lowercase ASCII letter. 
-* Special characters lose their speciality inside Brackets []. Meaning that any special character will be treated as 
-  a normal character inside []. 
-8. Curly Braces {m,n} causes Resulting REs to match from "m" to "n" attempting to match as many as possible.
-9. `\d` Matches unicode decimal digit [0-9]
-10. `\w` matches [A-z]
-
 ## Miscellaneous
 
 ### Word Boundary Concept
