@@ -1,14 +1,12 @@
-# Class of August 20, 2023
+# Regular Expressions 
 
 ## Regular Expressions (RegEx)
-1. A Regular Expression or RE or Regex is a specifies a set of strings that matches it. 
+1. A Regular Expression or RE or Regex is a sequence of characters that matches the character sequence with search pattern. 
 2. Functions in the module let us check if the specified string matches given RE. 
-3. Regex can contain both Special Characters and Ordinary Characters. Most Ordinary Characters like `A` or `a`
-or `0` are simplest Regular Expressions.
+3. Regex can contain both Special Characters and Ordinary Characters. Most Ordinary Characters like `A` or `a` or `0` are simplest Regular Expressions.
 4. Regular Expressions in Python are powerful tool for complex strings and text 
 data. 
-5. RegEx are always imported through **re** module. Regular Expressions are even though complex but makes easy to 
-format strings rather we use For Loops, Parsing etc. 
+5. RegEx are always imported through **re** module. Regular Expressions are even though complex but makes easy to search characters in strings rather using long codes of FOR, PARSE etc 
 6. Syntax of Regular Expressions is as follows:
 ```commandline
 re.findall(pattern, string, flag)
@@ -16,9 +14,9 @@ pattern = the defined criteria of what we want to find or search. Pattern can be
 Special Characters. 
 string = the place from where we want to find.
 flag = Flag is if there is specific search criteria. Default is "False" which is 0. Flag = 1 is True
+# Please note that at this stage, we only covered findall() function. 
 ```
 7. Regular Expressions are outputted in Lists. 
-
 8. We cannot pass 2 Flags in the same function but in different we can:
 ```commandline
 re.findall(pattern, string, re.Multiline)
@@ -32,9 +30,8 @@ Patterns are the heart of regular expressions; they allow you to describe a set 
 Patterns can include a combination of *ordinary characters*, *special characters*, and *metacharacters* that have 
 special meanings within the context of RegEx.
 1. **Combination of Characters**: Patterns are built by combining different characters and metacharacters. For 
-   example, abc is a simple pattern that matches the sequence **"abc"** in a string.
-2. **Special Characters**: Special characters have predefined meanings in RegEx. For example, `.` matches any character 
-**except a newline**, `*` matches zero or more occurrences, and `+` matches one or more occurrences.
+example, abc is a simple pattern that matches the sequence **"abc"** in a string.
+2. **Special Characters**: Special characters have predefined meanings in RegEx. For example, `.` matches any character **except a newline**, `*` matches zero or more occurrences, and `+` matches one or more occurrences.
 3. **Characters Classes**: Character classes allow you to define a set of characters that can match at a certain position. 
 For instance, `[aeiou]` matches any vowel.
 4. **Quantifiers**: Quantifiers determine how many times an element should occur. For example, {2,5} means the preceding element should occur between 2 to 5 times.
