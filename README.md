@@ -209,3 +209,15 @@ In the example `Python 3!` has *four* words:
 
 Word boundaries are important for ensuring precise matching of words within a larger text. They help avoid partial 
 matches and ensure that you're matching complete words rather than substrings within words.
+
+## Example 1 - Match Dates 
+```
+datestring = """I was Born in 19/10/1195
+Sister 1 in 19*08*1996
+Sister 2 in 9.3.2000
+"""
+patterndate = "\d{1,2}[*/,.]\d{1,2}[*/,.]\d{2,4}"
+matching = re.findall(patterndate, datestring)
+print(matching) 
+```
+I know that \d is used for decimal digits 0-9 and {1,2} in first 2 instances means digit can be either 1 or 2 similarly 2 or 4 (in last curly braces). [[*/,.]] means that the pattern can have any of the character in the string
