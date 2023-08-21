@@ -144,7 +144,7 @@ print(matches)
 ```
 In this example, the text contains two instances of "Hello." However, only the last "Hello" at the end of the text is matched by the pattern with the dollar sign ($) at the end. 
 ### **Asterisk (*)** 
-Causes resultant REs to match `0` or more repetitions of preceding REs, as many repititions are possible. `ab*` will match 'a', 'ab' or 'a' followed by any number of "b's". REs can appear 0 or as many unlike + that has to be at least 1. If empty text, * will return empty []. 
+Causes resultant REs to match `0` or more repetitions of preceding REs, as many repititions are possible. `ab*` will match 'a', 'ab' or 'a' followed by any number of "b's". REs can appear 0 or as many unlike `+` that has to be at least 1. If empty text, `*` will return empty []. 
 
 ### **Question Mark (?)** 
 Will match 0 or 1 of preceding REs. `ab` will match either `a` or `b`. In short, it means optional.
@@ -161,6 +161,8 @@ matches = re.findall(pattern, text)
 print(matches)
 # In this example, the pattern colou?r matches both "color" and "colour" in the text. The question mark allows the "u" to be there or not, making the pattern flexible enough to match both variations.
 ```
+### Other Characters 
+
 1. [] is used to indicate set of characters. In a Set:
 * Characters can be listed Individually eg [aml] will match `a`, `m` or `l`.
 * Ranges of characters can be indicated by giving two  characters and separate them by `-`, like `[a-z]` will 
