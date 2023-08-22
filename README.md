@@ -179,9 +179,7 @@ pattern = "." # any character without \n
 pattern = "\." # Ordinary dot character. 
 pattern = "\+" ordinary plus character
 ```
-## Miscellaneous
-
-### Word Boundary Concept
+## Word Boundary Concept
 The word boundary concept in Regular Expressions allows you to match patterns that are at the edges of words or surrounded 
 by non-word characters. A word boundary \b is a zero-width assertion that doesn't consume any characters but asserts a 
 specific position in the string. It's often used to match whole words.
@@ -193,6 +191,28 @@ specific position in the string. It's often used to match whole words.
 4. To apply Boundary concept, use `r` before pattern
 `pattern = r'STRING'`
 5. Use the `r'\bword\b'` pattern to match the whole word
+
+```
+import re
+# To find all occurences of a word
+text = "Hello Everyone. Hello, Sir. Hello Mam. Hello Teammates. Talaal, Hello"
+pattern = r"\bHello"
+word = re.findall(pattern, text)
+print(word)
+```
+```
+# To find whole words
+pattern2 = r"\bhello\b"
+word2 = re.findall(pattern2, text, re.IGNORECASE)
+print(word2)
+```
+```
+# Matching a Word at End of String only
+pattern3 = r"Hello\b"
+word3 = re.findall(pattern3, text)  
+unique_match = list(set(word3)) # Convert to set to get unique matches
+print(unique_match) # To match hello at end of the string only
+```
 
 A string has the following positions that qualify as word boundaries:
 
@@ -209,6 +229,69 @@ In the example `Python 3!` has *four* words:
 
 Word boundaries are important for ensuring precise matching of words within a larger text. They help avoid partial 
 matches and ensure that you're matching complete words rather than substrings within words.
+
+### Zero Width Assertion
+A zero-width assertion is a concept in regular expressions that refers to a condition that must be satisfied at a specific position in the string, but it doesn't consume (match) any characters from the string. There are 4 types of Zero-Width Assertions:
+1. **Positive Lookahead Assertion `(?=...)`**: 
+Positive lookahead is a zero-width assertion that checks if a certain pattern is followed by another pattern without consuming any characters. It's denoted by `(?=...)`.
+
+```
+# Suppose you want to find all occurrences of "apple" that are followed by "pie".
+import re
+
+text = "apple pie is delicious, apple is good, apple tart is amazing"
+pattern = r'apple(?= pie)'
+matches = re.findall(pattern, text)
+print(matches)  # Output: ['apple']
+
+```
+In this example, the pattern `apple(?= pie)` matches only the occurrences of "apple" that are followed by a space and then "pie". The lookahead assertion `(?= pie)` ensures that "pie" is present after "apple" without actually including "pie" in the match.
+
+2. **Negative Lookahead `(?!..)`**:
+Negative lookahead is a zero-width assertion that checks if a certain pattern is not followed by another pattern. It's denoted by `(?!...)`.
+
+```
+# Suppose you want to find all occurrences of "apple" that are not followed by "pie"
+
+import re
+
+text = "apple pie is delicious, apple is good, apple tart is amazing"
+pattern = r'apple(?! pie)'
+matches = re.findall(pattern, text)
+print(matches)  # Output: ['apple', 'apple', 'apple']
+
+```
+In this example, the pattern `apple(?! pie)` matches all occurrences of "apple" that are not followed by a space and then "pie". The negative lookahead `(?! pie)` ensures that "pie" is not present after "apple" without actually including "pie" in the match.
+
+3. **Positive Lookbehind `(?<=...>)`**: 
+Positive lookbehind is a zero-width assertion that checks if a certain pattern precedes the current position in the string. It's denoted by `(?<=...)`.
+
+```
+# Suppose you want to find all occurrences of "pie" that are preceded by "apple".
+
+import re
+
+text = "apple pie is delicious, pineapple tart is amazing, blueberry pie is sweet"
+pattern = r'(?<=apple )pie'
+matches = re.findall(pattern, text)
+print(matches)  # Output: ['pie']
+
+```
+In this example, the pattern `(?<=apple )pie` matches the occurrences of "pie" that are preceded by "apple " (with a space). The positive lookbehind `(?<=apple )` ensures that "apple " appears before "pie" without including "apple " in the match.
+
+4. **Negative Lookbehind `(?<!...)`**:
+Negative lookbehind is a zero-width assertion that checks if a certain pattern is not preceding the current position in the string. It's denoted by `(?<!...)`.
+```
+# Suppose you want to find all occurrences of "pie" that are not preceded by "blueberry".
+
+import re
+
+text = "apple pie is delicious, pineapple tart is amazing, blueberry pie is sweet"
+pattern = r'(?<!blueberry )pie'
+matches = re.findall(pattern, text)
+print(matches)  # Output: ['pie', 'pie']
+```
+In this example, the pattern `(?<!blueberry )pie` matches occurrences of "pie" that are not preceded by "blueberry " (with a space). The negative lookbehind `(?<!blueberry )` ensures that "blueberry " is not present before "pie" without including "blueberry " in the match.
 
 ## Example 1 - Match Dates 
 ```
