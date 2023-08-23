@@ -172,7 +172,6 @@ print(matches)
 2. Curly Braces {m,n} causes Resulting REs to match from "m" to "n" attempting to match as many as possible.
 3. `\d` Matches unicode decimal digit [0-9]
 4. `\w` matches [A-z]
-
 **Rule** to convert any special character in to normal character, use `\` followed by a special character.
 Example:
 ```commandline
@@ -305,3 +304,14 @@ matching = re.findall(patterndate, datestring)
 print(matching) 
 ```
 I know that \d is used for decimal digits 0-9 and {1,2} in first 2 instances means digit can be either 1 or 2 similarly 2 or 4 (in last curly braces). [[*/,.]] means that the pattern can have any of the character in the string
+
+### The Parenthesis - () 
+* If we need any desired data from pattern, use parenthesis. For example if we want date, name and roll number from pattern, we place them between ().
+* Pattern is necessary for Parenthesis
+* By placing part of a regular expression inside round brackets or parentheses, you can group that part of the regular expression together.
+* Example:
+```
+l = "12:05:45 From Talaal Yousoof to Everyone : DDOS-4578965"
+lets use `()` to modify the code
+modify = "(\d{2}:\d{2}:\d{2} From (.*) To Everyone : (DDOS-?\d{5,7})"
+```
